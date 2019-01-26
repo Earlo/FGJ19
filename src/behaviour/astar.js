@@ -1,14 +1,14 @@
 function astar(s, e){
 
-    open = []
-    close = []
+    let open = []
+    let close = []
 
-    g_score = {}
-    f_score = {}
-    came_from = {}
+    let g_score = {}
+    let f_score = {}
+    let came_from = {}
 
-    g_score[s] = 0
-    f_score[s] = cost(s, e)
+    g_score[s.id] = 0
+    f_score[s.id] = cost(s, e)
     came_from[s.id] = null
 
     open.push(s)
@@ -18,10 +18,10 @@ function astar(s, e){
         current = open[0]
         if (current == e){
             current = current.id
-            path = [current]
+            let path = []
             while (came_from[current] !== null){
+                path.push(current)
                 current = came_from[current]
-                path.push(current)    
             }
             return path
         }
@@ -30,18 +30,21 @@ function astar(s, e){
 
         Object.keys(current.neighbours).map(function(objectKey, index) {
             let tile = current.neighbours[objectKey];
-            if(tile.isOpen && close.indexOf(tile.id) == -1){
-                test_g_score = g_score[current] + cost(tile, current)
-                if(open.indexOf(tile.id) == -1 || test_g_score < g_score[tile]){
-                    came_from[tile.id] = current.id
-                    g_score[tile] = test_g_score
-                    f_score[tile] = g_score[tile] + cost(e, tile)
+            if(close.indexOf(tile.id) == -1){
+                test_g_score = g_score[current.id] + cost(current, tile)
+                if(tile.isOpen && open.indexOf(tile) == -1) {
                     open.push(tile)
+                } 
+                if( test_g_score < g_score[tile.id] || !(tile.id in g_score)){
+                    came_from[tile.id] = current.id
+                    g_score[tile.id] = test_g_score
+                    f_score[tile.id] = g_score[tile.id] + cost(tile, e)
                 }
             }
         })
-        open.sort(cost)
-        
+        open.sort(function(a, b){
+            return f_score[a.id] - f_score[b.id]
+        })
     }
 };
 

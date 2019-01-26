@@ -19,11 +19,19 @@ class Unit extends GraphicObject {
 
     act() {
         //AI here
-        // let target = this.team.enemy.flag.tile
-        this.moveTo(_.sample(this.tile.neighbours))
+        let target = this.team.enemy.flag.tile
+        let path = astar(this.tile, target)
+        //console.log("Path from", this.tile.id, target.id, "is",path)
+        //console.log(path[path.length -1], this.tile.id)
+        if(path.length > 0){
+            this.moveTo(this.team.arena.tiles[path[path.length -1]])
+        }
+        //random move
+        //this.moveTo(_.sample(this.tile.neighbours))
     }
 
     moveTo(tile){
+        //console.log(this.tile.id,"->",tile.id,tile.isOpen)
         if (tile.isOpen){
             super.move(tile.x, tile.y)
             tile.occupy(this)    

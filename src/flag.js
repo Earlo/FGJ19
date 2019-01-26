@@ -3,7 +3,6 @@ class Flag extends GraphicObject {
         super(tile.x, tile.y)
         
         this.tile = tile
-        console.log(tile)
         this.tile.addItem(this)
         this.draw()
 
