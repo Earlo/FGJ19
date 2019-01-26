@@ -1,12 +1,13 @@
 class Team {
-    constructor(color) {
+    constructor(colors, unithandler) {
         this.members = []
-        this.color = color
+        this.colors = colors
+        this.unithandler = unithandler
     }
 
     addMember(unit) {
-        unit.color = this.color
-
+        unit.changeColors(this.colors)
         this.members.push(unit)
+        this.unithandler.addUnit(unit)
     }
 }

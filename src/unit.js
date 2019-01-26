@@ -1,4 +1,4 @@
-class Unit extends GraphicObject{
+class Unit extends GraphicObject {
     constructor(tile) {
         super(tile.x, tile.y)
         this.tile = tile
@@ -12,12 +12,31 @@ class Unit extends GraphicObject{
     }
 
     act() {
+        //AI here
         this.moveTo(_.sample(this.tile.neighbours))
     }
 
     moveTo(tile){
-        //TODO if free
-        super.move(tile.x, tile.y)
-        tile.occupy(this)
+        if (tile.isOpen){
+            super.move(tile.x, tile.y)
+            tile.occupy(this)    
+        }
+    }
+}
+
+
+class UnitHandler {
+    constructor() {
+        this.units = []
+    }
+
+    addUnit(unit) {
+        this.units.push(unit)
+    }
+
+    act() {
+        this.units.forEach(function(unit) {
+            unit.act();
+        })
     }
 }

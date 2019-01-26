@@ -6,6 +6,10 @@ class Tile extends GraphicObject{
         this.neighbours = {}
     }
 
+    get isOpen() {
+        return this.occupied == null
+    }
+
     free() {
         if(this.occupied){
             this.occupied.tile = null

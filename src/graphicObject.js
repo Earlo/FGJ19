@@ -5,7 +5,7 @@ class GraphicObject {
         this.move(x,y)
     }
 
-    changeColor(colors) {
+    changeColors(colors) {
         this.colors = colors
         this.draw()
     }

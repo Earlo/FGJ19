@@ -14,6 +14,8 @@
 <body></body>
   <script type="text/javascript">
     let type = "WebGL"
+    let x = 40
+    let y = 30
     if(!PIXI.utils.isWebGLSupported()){
       type = "canvas"
     }
@@ -22,28 +24,31 @@
 
     //Create a Pixi Application
     let app = new PIXI.Application({ 
-        width: 256,         // default: 800
-        height: 256,        // default: 600
+        width: x*16,         // default: 800
+        height: y*16,        // default: 600
         antialias: true,    // default: false
         transparent: false, // default: false
         resolution: 1       // default: 1
       }
     )
 
-    arena = new Arena(12,12)
-    teamA = new Team()
-    teamB = new Team()
+    arena = new Arena(x,y)
+    UNITHANDLER = new UnitHandler()
+    teamA = new Team([0xFF6600], UNITHANDLER)
+    teamB = new Team([0x0066FF], UNITHANDLER)
 
     let UnitA = new Unit(arena.tiles[1][1])
     let UnitB = new Unit(arena.tiles[10][10])
 
+    teamA.addMember(UnitA)
+    teamB.addMember(UnitB)
+    
     arena.display(app.stage)
     //Add the canvas that Pixi automatically created for you to the HTML document
     document.body.appendChild(app.view)
     setInterval(function() {
-      UnitA.act();
-      UnitB.act();
-    }, 5);
+      UNITHANDLER.act();
+    }, 50);
   </script>
 </body>
 </html>
