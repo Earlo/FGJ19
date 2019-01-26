@@ -1,6 +1,6 @@
 class GraphicObject {
     constructor(x, y){
-        this.sprite = new PIXI.Graphics();
+        this.sprite = new PIXI.Graphics()
         this.move(x,y)
     }
 

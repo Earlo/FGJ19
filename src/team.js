@@ -1,9 +1,9 @@
 class Team {
     constructor() {
-        this.members = [];
+        this.members = []
     }
 
     add_members(unit) {
-        this.members.push(unit);
+        this.members.push(unit)
     }
 }
