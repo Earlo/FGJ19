@@ -10,6 +10,7 @@
   <script src="src/tile.js"></script>
   <script src="src/arena.js"></script>
   <script src="src/unit.js"></script>
+  <script src="src/team.js"></script>
 <body></body>
   <script type="text/javascript">
     let type = "WebGL"
@@ -30,12 +31,19 @@
     )
 
     arena = new Arena(12,12)
-    arena.addUnit(0, 0, 0x9966FF)
-    arena.addUnit(10,10, 0xFF6699)
-    arena.display(app.stage)
+    teamA = new Team()
+    teamB = new Team()
 
+    let UnitA = new Unit(arena.tiles[1][1])
+    let UnitB = new Unit(arena.tiles[10][10])
+
+    arena.display(app.stage)
     //Add the canvas that Pixi automatically created for you to the HTML document
     document.body.appendChild(app.view)
+    setInterval(function() {
+      UnitA.act();
+      UnitB.act();
+    }, 5);
   </script>
 </body>
 </html>

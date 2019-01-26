@@ -42,11 +42,6 @@ class Arena {
         return this.tiles[0].length
     }
 
-    addUnit(x, y, color) {
-        let u = new Unit(color, this.tiles[x][y])
-        u.act()
-    }
-
     display(target) {
         let arena_map = new PIXI.Container()
         for (var i = 0; i < this.width(); i++) {

@@ -1,21 +1,21 @@
 class Unit extends GraphicObject{
-    constructor(color, tile) {
+    constructor(tile) {
         super(tile.x, tile.y)
         this.tile = tile
         this.tile.occupy(this)
-
-        this.draw(color)
+        this.draw()
     }
-    draw(color) {
-        this.sprite.beginFill(color)
+
+    draw() {
+        this.sprite.beginFill(this.colors[0])
         this.sprite.drawCircle(16 / 2, 16 / 2, 6)
     }
 
     act() {
-        this.move_to(_.sample(this.tile.neighbours))
+        this.moveTo(_.sample(this.tile.neighbours))
     }
 
-    move_to(tile){
+    moveTo(tile){
         //TODO if free
         super.move(tile.x, tile.y)
         tile.occupy(this)

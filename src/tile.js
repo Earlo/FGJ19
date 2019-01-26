@@ -1,7 +1,7 @@
 class Tile extends GraphicObject{
     constructor(x, y){
         super(x, y)
-        this.draw(0xFFFF00)
+        this.draw()
         this.occupied = null
         this.neighbours = {}
     }
@@ -19,8 +19,8 @@ class Tile extends GraphicObject{
         this.occupied = unit
     }
 
-    draw(color) {
-        this.sprite.lineStyle(1, color, 1)
+    draw() {
+        this.sprite.lineStyle(1, this.colors[0], 1)
         this.sprite.drawRect(0, 0, 16, 16)
     }
 

@@ -1,7 +1,13 @@
 class GraphicObject {
     constructor(x, y){
         this.sprite = new PIXI.Graphics()
+        this.colors = [0xFFFF00]
         this.move(x,y)
+    }
+
+    changeColor(colors) {
+        this.colors = colors
+        this.draw()
     }
 
     move(x, y) {
