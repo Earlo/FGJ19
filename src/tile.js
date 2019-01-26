@@ -2,26 +2,33 @@ class Tile extends GraphicObject{
     constructor(x, y){
         super(x, y)
         this.draw()
-        this.occupied = null
+        this.unit = null
+        this.items = []
         this.neighbours = {}
     }
 
     get isOpen() {
-        return this.occupied == null
+        return this.unit == null
     }
 
     free() {
-        if(this.occupied){
-            this.occupied.tile = null
+        if(this.unit){
+            this.unit.tile = null
         }
-        this.occupied = null
+        this.unit = null
     }
 
     occupy(unit) {
         unit.tile.free()
         unit.tile = this
-        this.occupied = unit
+        this.unit = unit
     }
+
+    addItem(item) {
+        this.items.push(item)
+    }
+
+    //TODO remove item
 
     draw() {
         this.sprite.lineStyle(1, this.colors[0], 1)
@@ -30,8 +37,12 @@ class Tile extends GraphicObject{
 
     display(target) {
         super.display(target)
-        if (this.occupied !== null){
-            this.occupied.display(target)
+        if (this.unit !== null){
+            this.unit.display(target)
         }
+        this.items.forEach(function(item) {
+            item.display(target);
+        })
+
     }
 }
