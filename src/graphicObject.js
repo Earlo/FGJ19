@@ -5,6 +5,10 @@ class GraphicObject {
         this.move(x,y)
     }
 
+    get coords() {
+        return [this.x, this.y]
+    }
+
     changeColors(colors) {
         this.colors = colors
         this.draw()

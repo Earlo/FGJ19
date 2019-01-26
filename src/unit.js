@@ -4,6 +4,12 @@ class Unit extends GraphicObject {
         this.tile = tile
         this.tile.occupy(this)
         this.draw()
+        this.team = null
+    }
+
+    setTeam(team) {
+        this.team = team
+        this.changeColors(this.team.colors)
     }
 
     draw() {
@@ -13,6 +19,7 @@ class Unit extends GraphicObject {
 
     act() {
         //AI here
+        // let target = this.team.enemy.flag.tile
         this.moveTo(_.sample(this.tile.neighbours))
     }
 
@@ -35,6 +42,7 @@ class UnitHandler {
     }
 
     act() {
+        //TODO add priority queue
         this.units.forEach(function(unit) {
             unit.act();
         })

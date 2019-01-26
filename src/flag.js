@@ -1,11 +1,14 @@
 class Flag extends GraphicObject {
-    constructor(tile) {
+    constructor(team, tile) {
         super(tile.x, tile.y)
         
         this.tile = tile
         console.log(tile)
         this.tile.addItem(this)
         this.draw()
+
+        this.carried = false
+        this.team = team
     }
 
     draw() {

@@ -1,14 +1,20 @@
 class Tile extends GraphicObject{
-    constructor(x, y){
+    constructor(x, y, id){
         super(x, y)
         this.draw()
         this.unit = null
         this.items = []
         this.neighbours = {}
+
+        this.id = id
     }
 
     get isOpen() {
         return this.unit == null
+    }
+
+    get isWall() {
+        return false
     }
 
     free() {

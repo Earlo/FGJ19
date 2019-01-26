@@ -1,11 +1,13 @@
 class Arena {
     constructor(w, h) {
         this.size = 16
-        this.tiles = new Array(w)        
-        for (var i = 0; i < this.tiles.length; i++) {
-            this.tiles[i] = new Array(h)
-            for (var j = 0; j < this.tiles[i].length; j++) {
-                this.tiles[i][j] = new Tile(i, j)
+        this.height = h
+        this.width = w
+        this.tiles = {}
+        for (var i = 0; i < this.width; i++) {
+            for (var j = 0; j < this.height; j++) {
+                let id = i + "-" + j
+                this.tiles[id] = new Tile(i, j, id)
             }
         }
         // ugly
@@ -26,7 +28,9 @@ class Arena {
                     let rx = i + connections[c][0]
                     let ry = j + connections[c][1]
                     if (rx > -1 && ry > -1 && rx < this.width && ry < this.height){
-                        this.tiles[i][j].neighbours[index] = this.tiles[rx][ry] 
+                        let id = i + "-" + j
+                        let rid = rx + "-" + ry
+                        this.tiles[id].neighbours[index] = this.tiles[rid] 
                     }
                     index += 1
                 }
@@ -34,23 +38,18 @@ class Arena {
         }
     }
 
-    get height() {
-        return this.tiles[0].length
-    }
-
-    get width() {
-        return this.tiles.length
-    }
-
     display(target) {
         let arena_map = new PIXI.Container()
         for (var i = 0; i < this.width; i++) {
             for (var j = 0; j < this.height; j++) {
-                this.tiles[i][j].display(arena_map)
+                let id = i + "-" + j
+
+                this.tiles[id].display(arena_map)
             }
         }
         //Add projection here or something
         target.addChild(arena_map)
     }
+
 }
 
