@@ -2,9 +2,21 @@ class Unit extends GraphicObject {
     constructor(tile) {
         super(tile.x, tile.y)
         this.tile = tile
+        this.flag = null
+
         this.tile.occupy(this)
         this.draw()
         this.team = null
+
+        this.behaviour = Steal
+    }
+
+    take(item) {
+        item.pick(this)
+    }
+
+    drop() {
+        this.flag.drop(this)
     }
 
     setTeam(team) {
@@ -18,24 +30,20 @@ class Unit extends GraphicObject {
     }
 
     act() {
-        //AI here
-        let target = this.team.enemy.flag.tile
-        let path = astar(this.tile, target)
-        //console.log("Path from", this.tile.id, target.id, "is",path)
-        //console.log(path[path.length -1], this.tile.id)
-        if(path.length > 0){
-            this.moveTo(this.team.arena.tiles[path[path.length -1]])
-        }
-        //random move
-        //this.moveTo(_.sample(this.tile.neighbours))
+        this.behaviour(this)
     }
 
     moveTo(tile){
         //console.log(this.tile.id,"->",tile.id,tile.isOpen)
         if (tile.isOpen){
             super.move(tile.x, tile.y)
-            tile.occupy(this)    
+            if (this.flag){
+                this.flag.move(tile.x, tile.y)
+            }
+            tile.occupy(this)
+            return true
         }
+        return false
     }
 }
 

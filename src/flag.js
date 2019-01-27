@@ -6,7 +6,7 @@ class Flag extends GraphicObject {
         this.tile.addItem(this)
         this.draw()
 
-        this.carried = false
+        this.carrier = null
         this.team = team
     }
 
@@ -15,9 +15,23 @@ class Flag extends GraphicObject {
         this.sprite.drawCircle(16 / 2, 16 / 2, 4)
     }
 
-    act() {
-        //AI here
-        this.moveTo(_.sample(this.tile.neighbours))
+    pick(unit) {
+        this.tile.removeItem(this)
+        let s = this.tile
+        this.tile = null
+        this.carrier = unit
+        unit.flag = this
+        this.draw()
+        s.draw()
+    }
+
+    drop(unit) {
+        console.log("dpw")
+        this.tile = unit.tile
+        unit.flag = null
+        this.carrier = null
+        this.tile.addItem(this)
+        this.move(this.tile.x, this.tile.y)
     }
 
     moveTo(tile){

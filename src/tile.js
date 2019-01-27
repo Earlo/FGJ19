@@ -33,8 +33,10 @@ class Tile extends GraphicObject{
     addItem(item) {
         this.items.push(item)
     }
+    removeItem(item) {
+        this.items.splice(this.items.indexOf(item), 1)
+    }
 
-    //TODO remove item
 
     draw() {
         this.sprite.lineStyle(1, this.colors[0], 1)

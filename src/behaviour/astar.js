@@ -1,5 +1,4 @@
 function astar(s, e){
-
     let open = []
     let close = []
 
@@ -14,7 +13,7 @@ function astar(s, e){
     open.push(s)
     
 
-    while (open){
+    while (open && close.length < 50){
         current = open[0]
         if (current == e){
             current = current.id
@@ -46,6 +45,7 @@ function astar(s, e){
             return f_score[a.id] - f_score[b.id]
         })
     }
+    return [(s.x+Math.sign((e.x-s.x))) + "-" + (s.y+Math.sign((e.y-s.y)))]
 };
 
 function cost(a, b) {

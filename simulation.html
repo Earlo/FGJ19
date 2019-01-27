@@ -13,6 +13,8 @@
   <script src="src/team.js"></script>
   <script src="src/flag.js"></script>
   <script src="src/behaviour/astar.js"></script>
+  <script src="src/behaviour/behaviour.js"></script>
+
 <body></body>
   <script type="text/javascript">
     let type = "WebGL"
@@ -42,14 +44,19 @@
     UNITHANDLER = new UnitHandler()
     teamA = new Team(arena, [0xFF6600], [[0,0],[0,1],[1,0],[1,1]], UNITHANDLER)
     teamB = new Team(arena, [0x0066FF], [[38,28],[38,29],[39,28],[39,29]], UNITHANDLER)
+
     teamA.setEnemy(teamB)
     teamB.setEnemy(teamA)
 
     let UnitA = new Unit(arena.tiles["1-1"])
-    let UnitB = new Unit(arena.tiles["10-10"])
+    let UnitB = new Unit(arena.tiles["38-28"])
+    let UnitC = new Unit(arena.tiles["7-6"])
+    let UnitD = new Unit(arena.tiles["33-22"])
 
     teamA.addMember(UnitA)
     teamB.addMember(UnitB)
+    //teamA.addMember(UnitC)
+    //teamB.addMember(UnitD)
     
     
     arena.display(app.stage)
